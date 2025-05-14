@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    background-color: #0b1120;
+  }
+  :root {
+    --background: #0b1120;
+    --foreground: #ffffff;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: #22d3ee;
+    --primary-foreground: #ffffff;
+    --secondary: #818cf8;
+    --secondary-foreground: #ffffff;
+    --muted: #1a2236;
+    --muted-foreground: #94a3b8;
+    --accent: #22d3ee;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #1a2236;
+    --input: #1a2236;
+    --ring: #22d3ee;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#0b1120] text-[#e2e8f0] font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-white;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  p {
+    @apply text-[#cbd5e1] leading-relaxed;
+  }
+  a {
+    @apply text-[#22d3ee] hover:text-[#67e8f9] transition-colors;
+  }
+}
+
+@layer components {
+  .car-card {
+    @apply bg-[#101624] rounded-xl overflow-hidden border border-[#1a2236] shadow-lg transition-all duration-300 hover:shadow-cyan-500/10;
+  }
+
+  .car-card-image-area {
+    @apply relative overflow-hidden;
+  }
+
+  .car-card-image {
+    @apply w-full transition-transform duration-500;
+  }
+
+  .car-card:hover .car-card-image {
+    @apply scale-105;
+  }
+
+  .car-card-glare {
+    @apply absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#101624] opacity-60;
+  }
+
+  .car-card-content {
+    @apply p-6;
+  }
+
+  .car-card-title {
+    @apply text-xl font-bold text-white mb-2;
+  }
+
+  .car-card-price {
+    @apply text-2xl font-bold text-[#22d3ee] mb-4;
+  }
+
+  .car-card-specs {
+    @apply grid grid-cols-3 gap-4 mb-4 text-[#cbd5e1];
+  }
+
+  .car-card-spec {
+    @apply flex items-center text-sm;
+  }
+
+  .car-card-btn {
+    @apply bg-[#22d3ee] text-[#0b1120] hover:bg-[#67e8f9] transition-colors;
+  }
+
+  .footer {
+    @apply bg-[#101624] border-t border-[#1a2236] py-12;
+  }
+
+  .footer-content {
+    @apply container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8;
+  }
+
+  .footer-section {
+    @apply space-y-4;
+  }
+
+  .footer-title {
+    @apply text-lg font-bold text-white mb-4;
+  }
+
+  .footer-links {
+    @apply space-y-2;
+  }
+
+  .footer-link {
+    @apply text-[#cbd5e1] hover:text-[#22d3ee] transition-colors;
+  }
+
+  .footer-bottom {
+    @apply mt-8 pt-8 border-t border-[#1a2236] text-center text-[#94a3b8];
+  }
+
+  .social-links {
+    @apply flex gap-4 mt-4 justify-center;
+  }
+
+  .social-link {
+    @apply text-[#cbd5e1] hover:text-[#22d3ee] transition-colors;
+  }
+}
+
+/* Custom styles */
+.container-custom {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.text-foreground-secondary {
+  @apply text-muted-foreground;
+}
+
+.bg-background-secondary {
+  @apply bg-muted;
+}
+
+.bg-background-tertiary {
+  @apply bg-accent;
+} 

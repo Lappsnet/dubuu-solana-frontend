@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="300" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="300" fill="#F3F4F6"/>
+  <path d="M250 150C277.614 150 300 127.614 300 100C300 72.3858 277.614 50 250 50C222.386 50 200 72.3858 200 100C200 127.614 222.386 150 250 150Z" fill="#E5E7EB"/>
+  <path d="M250 170C194.772 170 150 214.772 150 270H350C350 214.772 305.228 170 250 170Z" fill="#E5E7EB"/>
+  <text x="250" y="160" text-anchor="middle" font-family="Arial" font-size="14" fill="#9CA3AF">Vehicle Image</text>
+</svg>
