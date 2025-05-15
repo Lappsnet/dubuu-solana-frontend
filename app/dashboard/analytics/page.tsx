@@ -1,131 +1,126 @@
 "use client"
 
+import { BarChart3, Car, Gavel, Users, TrendingUp, TrendingDown } from "lucide-react"
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { BarChart, Car, Gavel, Users } from "lucide-react"
 
 export default function AnalyticsPage() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
-          <div className="flex items-center gap-2">
-            <Button variant="outline">Export Report</Button>
-            <Button>Refresh Data</Button>
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-white">Analytics Overview</h1>
+        
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-cyan-400/20 flex items-center justify-center">
+                <BarChart3 className="h-6 w-6 text-cyan-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">Monthly Revenue</p>
+                <p className="text-2xl font-bold text-white">$234,567</p>
+                <div className="flex items-center text-sm text-green-400">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  +12.5%
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-purple-400/20 flex items-center justify-center">
+                <Gavel className="h-6 w-6 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">Active Auctions</p>
+                <p className="text-2xl font-bold text-white">24</p>
+                <div className="flex items-center text-sm text-green-400">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  +8.2%
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-blue-400/20 flex items-center justify-center">
+                <Car className="h-6 w-6 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">New Listings</p>
+                <p className="text-2xl font-bold text-white">156</p>
+                <div className="flex items-center text-sm text-red-400">
+                  <TrendingDown className="h-4 w-4 mr-1" />
+                  -3.1%
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-green-400/20 flex items-center justify-center">
+                <Users className="h-6 w-6 text-green-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">New Users</p>
+                <p className="text-2xl font-bold text-white">89</p>
+                <div className="flex items-center text-sm text-green-400">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  +15.3%
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-              <BarChart className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$1,234,567</div>
-              <p className="text-xs text-muted-foreground">+20.1% from last month</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Auctions</CardTitle>
-              <Gavel className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">12</div>
-              <p className="text-xs text-muted-foreground">+2 new this week</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Registered Vehicles</CardTitle>
-              <Car className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">156</div>
-              <p className="text-xs text-muted-foreground">+8 new this month</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">89</div>
-              <p className="text-xs text-muted-foreground">+12 new this month</p>
-            </CardContent>
-          </Card>
+        {/* Monthly Revenue Chart */}
+        <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+          <h2 className="text-xl font-semibold text-white mb-4">Monthly Revenue</h2>
+          <div className="h-[300px] flex items-center justify-center text-[#b3c2d6]">
+            Chart Placeholder
+          </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Monthly Revenue</CardTitle>
-              <CardDescription>Revenue generated from auctions</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[200px] flex items-center justify-center text-muted-foreground">
-                Revenue chart will be displayed here
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Vehicle Categories</CardTitle>
-              <CardDescription>Distribution of vehicle types</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[200px] flex items-center justify-center text-muted-foreground">
-                Category distribution chart will be displayed here
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <h2 className="text-xl font-semibold text-white mb-4">Top Performing Vehicles</h2>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-4 bg-[#101624] rounded-lg">
+                  <div>
+                    <p className="text-white font-medium">Tesla Model S Plaid</p>
+                    <p className="text-sm text-[#b3c2d6]">Views: 1,234</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-cyan-400 font-semibold">$129,990</p>
+                    <p className="text-sm text-[#b3c2d6]">5 bids</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Performing Auctions</CardTitle>
-              <CardDescription>Auctions with highest revenue</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium">BMW M4 Competition</p>
-                      <p className="text-xs text-muted-foreground">Ended 2 days ago</p>
-                    </div>
-                    <div className="text-sm font-medium">$52,000</div>
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <h2 className="text-xl font-semibold text-white mb-4">User Activity</h2>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-4 bg-[#101624] rounded-lg">
+                  <div>
+                    <p className="text-white font-medium">John Doe</p>
+                    <p className="text-sm text-[#b3c2d6]">Active for 2 days</p>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>Latest actions in the marketplace</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium">New vehicle registered</p>
-                      <p className="text-xs text-muted-foreground">By John Doe • 2 hours ago</p>
-                    </div>
-                    <Button variant="ghost" size="sm">
-                      View
-                    </Button>
+                  <div className="text-right">
+                    <p className="text-purple-400 font-semibold">3 Listings</p>
+                    <p className="text-sm text-[#b3c2d6]">5 Bids</p>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </DashboardLayout>

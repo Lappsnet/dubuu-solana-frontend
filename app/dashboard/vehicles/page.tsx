@@ -1,5 +1,6 @@
 "use client"
 
+import { Car, Calendar, Gauge, MapPin, Shield, Tag } from "lucide-react"
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
 
 const vehicles = [
@@ -47,36 +48,44 @@ const vehicles = [
 export default function VehiclesPage() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Registered Vehicles</h1>
-          <button className="car-card-btn">Register Vehicle</button>
-        </div>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-white">Registered Vehicles</h1>
+        
+        <div className="grid gap-6">
           {vehicles.map((v) => (
-            <div className="car-card" key={v.vin}>
-              <div className="car-card-image-area">
-                <img src={v.image} alt={v.title} className="car-card-image" />
-                <div className="car-card-glare"></div>
-              </div>
-              <div className="car-card-content">
-                <div className="car-card-title">{v.title}</div>
-                <div className="car-card-specs">
-                  <div className="car-card-spec">{v.year}</div>
-                  <div className="car-card-spec">{v.mileage}</div>
-                  <div className="car-card-spec">VIN: {v.vin}</div>
+            <div key={v.vin} className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex gap-4">
+                  <div className="h-12 w-12 rounded-lg bg-cyan-400/20 flex items-center justify-center">
+                    <img src={v.image} alt={v.title} className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">{v.title}</h3>
+                    <div className="mt-2 flex flex-col gap-1">
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        {v.year}
+                      </div>
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <Gauge className="h-4 w-4 mr-2" />
+                        {v.mileage}
+                      </div>
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <MapPin className="h-4 w-4 mr-2" />
+                        {v.owner}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="car-card-specs mb-2">
-                  <div className="car-card-spec">Owner: {v.owner}</div>
-                  <div className="car-card-spec">{v.registered}</div>
-                </div>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="car-card-price">{v.status}</span>
-                  <span className="text-xs text-[#b3c2d6]">{v.email}</span>
-                </div>
-                <div className="flex justify-end gap-2 mt-2">
-                  <button className="car-card-btn">View Details</button>
-                  <button className="car-card-btn">List for Auction</button>
+                <div className="flex gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-400/20 text-purple-400">
+                    <Tag className="h-4 w-4" />
+                    <span>{v.status}</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-400">
+                    <Shield className="h-4 w-4" />
+                    <span>{v.registered}</span>
+                  </div>
                 </div>
               </div>
             </div>

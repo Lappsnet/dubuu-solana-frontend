@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { PhantomProvider } from '@/providers/phantom-provider'
+import { Toaster } from 'sonner'
+import { Footer } from '@/components/footer'
 //import '../styles/car-card.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,7 +22,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
         <PhantomProvider>
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <Toaster richColors position="top-right" />
         </PhantomProvider>
       </body>
     </html>

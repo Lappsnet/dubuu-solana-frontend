@@ -1,65 +1,45 @@
 "use client"
 
+import { Shield, CheckCircle2, XCircle } from "lucide-react"
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Shield } from "lucide-react"
 
 export default function VerificationPage() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Verification Requests</h1>
-          <Button>New Request</Button>
-        </div>
-
-        <div className="grid gap-4">
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-white">Verification Requests</h1>
+        
+        <div className="grid gap-6">
           {[1, 2, 3, 4, 5].map((i) => (
-            <Card key={i}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Shield className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle>Vehicle Ownership Verification</CardTitle>
-                      <CardDescription>Requested by John Doe • 2 days ago</CardDescription>
-                    </div>
-                  </div>
-                  <Badge variant="outline" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
-                    Pending Review
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div>
-                    <h3 className="font-medium mb-2">Vehicle Details</h3>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <p>Make: BMW</p>
-                      <p>Model: M4 Competition</p>
-                      <p>Year: 2019</p>
-                      <p>VIN: WBS4R9C50KB123456</p>
-                    </div>
+            <div key={i} className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex gap-4">
+                  <div className="h-12 w-12 rounded-lg bg-cyan-400/20 flex items-center justify-center">
+                    <Shield className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-2">Owner Details</h3>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <p>Name: John Doe</p>
-                      <p>Email: john@example.com</p>
-                      <p>Phone: (555) 123-4567</p>
+                    <h3 className="text-lg font-semibold text-white">Tesla Model S Plaid</h3>
+                    <p className="text-[#b3c2d6]">Submitted by John Doe</p>
+                    <div className="mt-2 flex gap-2">
+                      <span className="px-2 py-1 rounded-full text-xs bg-purple-400/20 text-purple-400">2022</span>
+                      <span className="px-2 py-1 rounded-full text-xs bg-blue-400/20 text-blue-400">5,000 miles</span>
+                      <span className="px-2 py-1 rounded-full text-xs bg-cyan-400/20 text-cyan-400">San Francisco, CA</span>
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end gap-2 mt-4">
-                  <Button variant="outline">Reject</Button>
-                  <Button>Approve</Button>
+                <div className="flex gap-2">
+                  <Button className="bg-green-500/20 text-green-400 hover:bg-green-500/30 hover:text-green-300">
+                    <CheckCircle2 className="h-4 w-4 mr-2" />
+                    Approve
+                  </Button>
+                  <Button className="bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300">
+                    <XCircle className="h-4 w-4 mr-2" />
+                    Reject
+                  </Button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

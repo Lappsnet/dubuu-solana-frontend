@@ -1,94 +1,73 @@
 "use client"
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Shield, Tag, Clock } from 'lucide-react'
+import { Shield, Tag, Clock, Search, SlidersHorizontal, ChevronDown } from 'lucide-react'
 import { PhantomConnectButton } from '@/components/phantom-connect-button'
-
-const featuredVehicles = [
-  {
-    image: '/cars/tesla-model3.jpg',
-    title: '2020 Tesla Model 3 Performance',
-    price: '$42,500',
-    year: 2020,
-    mileage: '28,500',
-    location: 'San Francisco, CA',
-    status: 'Auction',
-    badge: 'Verified',
-    condition: 'Excellent',
-    time: '1d 23h',
-    link: '/vehicles/1',
-    currentBid: true,
-  },
-  {
-    image: '/cars/bmw-m4.jpg',
-    title: '2019 BMW M4 Competition',
-    price: '$56,000',
-    year: 2019,
-    mileage: '31,200',
-    location: 'Los Angeles, CA',
-    status: 'Buy Now',
-    badge: 'Verified',
-    condition: 'Excellent',
-    link: '/vehicles/2',
-    currentBid: false,
-  },
-  {
-    image: '/cars/mustang-gt.jpg',
-    title: '2018 Ford Mustang GT Premium',
-    price: '$32,500',
-    year: 2018,
-    mileage: '45,000',
-    location: 'Dallas, TX',
-    status: 'Auction',
-    badge: 'Verified',
-    condition: 'Good',
-    time: '23h 59m',
-    link: '/vehicles/3',
-    currentBid: true,
-  },
-  {
-    image: '/cars/porsche-911.jpg',
-    title: '2021 Porsche 911 Carrera S',
-    price: '$129,000',
-    year: 2021,
-    mileage: '12,000',
-    location: 'Miami, FL',
-    status: 'Buy Now',
-    badge: 'Verified',
-    condition: 'Like New',
-    link: '/vehicles/4',
-    currentBid: false,
-  },
-  {
-    image: '/cars/corvette-z06.jpg',
-    title: '2017 Chevrolet Corvette Z06',
-    price: '$68,500',
-    year: 2017,
-    mileage: '28,000',
-    location: 'Chicago, IL',
-    status: 'Auction',
-    badge: 'Verified',
-    condition: 'Excellent',
-    time: '2d 23h',
-    link: '/vehicles/5',
-    currentBid: true,
-  },
-  {
-    image: '/cars/audi-rs7.jpg',
-    title: '2020 Audi RS7 Sportback',
-    price: '$98,000',
-    year: 2020,
-    mileage: '18,500',
-    location: 'Seattle, WA',
-    status: 'Buy Now',
-    badge: 'Verified',
-    condition: 'Excellent',
-    link: '/vehicles/6',
-    currentBid: false,
-  },
-]
+import { featuredVehicles } from '@/data/vehicles'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Slider } from '@/components/ui/slider'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export default function MarketplacePage() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [priceRange, setPriceRange] = useState([0, 200000])
+  const [selectedMakes, setSelectedMakes] = useState<string[]>([])
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([])
+  const [showFilters, setShowFilters] = useState(false)
+  const [filteredVehicles, setFilteredVehicles] = useState(featuredVehicles)
+
+  // Get unique makes and conditions
+  const makes = Array.from(new Set(featuredVehicles.map(car => car.make)))
+  const conditions = Array.from(new Set(featuredVehicles.map(car => car.condition)))
+
+  useEffect(() => {
+    let filtered = featuredVehicles
+
+    // Apply search filter
+    if (searchQuery) {
+      filtered = filtered.filter(car => 
+        car.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        car.model.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    }
+
+    // Apply price range filter
+    filtered = filtered.filter(car => 
+      car.price >= priceRange[0] && car.price <= priceRange[1]
+    )
+
+    // Apply make filter
+    if (selectedMakes.length > 0) {
+      filtered = filtered.filter(car => selectedMakes.includes(car.make))
+    }
+
+    // Apply condition filter
+    if (selectedConditions.length > 0) {
+      filtered = filtered.filter(car => selectedConditions.includes(car.condition))
+    }
+
+    setFilteredVehicles(filtered)
+  }, [searchQuery, priceRange, selectedMakes, selectedConditions])
+
+  const handleMakeToggle = (make: string) => {
+    setSelectedMakes(prev => 
+      prev.includes(make) 
+        ? prev.filter(m => m !== make)
+        : [...prev, make]
+    )
+  }
+
+  const handleConditionToggle = (condition: string) => {
+    setSelectedConditions(prev => 
+      prev.includes(condition) 
+        ? prev.filter(c => c !== condition)
+        : [...prev, condition]
+    )
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#101624] to-[#0b1120]">
       {/* Navbar */}
@@ -115,86 +94,173 @@ export default function MarketplacePage() {
       <section className="container mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-10">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">Browse Vehicles</h1>
-          <span className="text-cyan-400 font-semibold text-lg">{featuredVehicles.length} Results</span>
+          <span className="text-cyan-400 font-semibold text-lg">{filteredVehicles.length} Results</span>
         </div>
+
+        {/* Search and Filters */}
+        <div className="mb-8 space-y-4">
+          <div className="flex gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#b3c2d6]" />
+              <Input
+                type="search"
+                placeholder="Search by make, model, or title..."
+                className="pl-9 bg-[#181f2e] border-[#1a2236] text-[#b3c2d6] placeholder:text-[#b3c2d6]/50"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <Button
+              variant="outline"
+              className="bg-[#181f2e] border-[#1a2236] text-[#b3c2d6] hover:bg-cyan-400/10 hover:text-cyan-400"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <SlidersHorizontal className="h-4 w-4 mr-2" />
+              Filters
+              <ChevronDown className={`h-4 w-4 ml-2 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+            </Button>
+          </div>
+
+          {/* Filter Panel */}
+          {showFilters && (
+            <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] space-y-6">
+              {/* Price Range */}
+              <div>
+                <h3 className="text-white font-semibold mb-4">Price Range (USDC)</h3>
+                <div className="px-2">
+                  <Slider
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    min={0}
+                    max={200000}
+                    step={1000}
+                    className="mb-4"
+                  />
+                  <div className="flex justify-between text-[#b3c2d6]">
+                    <span>{priceRange[0].toLocaleString()} USDC</span>
+                    <span>{priceRange[1].toLocaleString()} USDC</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Makes */}
+              <div>
+                <h3 className="text-white font-semibold mb-4">Makes</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {makes.map((make) => (
+                    <div key={make} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={make}
+                        checked={selectedMakes.includes(make)}
+                        onCheckedChange={() => handleMakeToggle(make)}
+                      />
+                      <label
+                        htmlFor={make}
+                        className="text-sm text-[#b3c2d6] cursor-pointer"
+                      >
+                        {make}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Conditions */}
+              <div>
+                <h3 className="text-white font-semibold mb-4">Conditions</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {conditions.map((condition) => (
+                    <div key={condition} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={condition}
+                        checked={selectedConditions.includes(condition)}
+                        onCheckedChange={() => handleConditionToggle(condition)}
+                      />
+                      <label
+                        htmlFor={condition}
+                        className="text-sm text-[#b3c2d6] cursor-pointer"
+                      >
+                        {condition}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Vehicle Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {featuredVehicles.map((car, i) => (
-            <div className="car-card shadow-xl hover:shadow-cyan-400/20 transition-shadow duration-300" key={car.title}>
+          {filteredVehicles.map((car) => (
+            <div className="car-card shadow-xl hover:shadow-cyan-400/20 transition-shadow duration-300" key={car.id}>
               <div className="car-card-image-area relative">
-                <img src={car.image} alt={car.title} className="car-card-image" />
+                <img src={car.imageUrl} alt={car.title} className="car-card-image" />
                 <div className="car-card-glare"></div>
                 <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
-                  <span className="bg-cyan-400/20 text-cyan-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">{car.badge}</span>
-                  <span className="bg-purple-400/20 text-purple-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">{car.condition}</span>
-                  {car.currentBid && car.time && (
-                    <span className="bg-blue-400/20 text-blue-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">{car.time}</span>
+                  {car.isVerified && (
+                    <span className="bg-cyan-400/20 text-cyan-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">
+                      <Shield className="h-3 w-3 mr-1" />Verified
+                    </span>
+                  )}
+                  {car.condition && (
+                    <span className="bg-purple-400/20 text-purple-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">
+                      {car.condition}
+                    </span>
+                  )}
+                  {car.isAuction && car.auctionEndsAt && (
+                    <span className="bg-blue-400/20 text-blue-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">
+                      <Clock className="h-3 w-3 mr-1" />
+                      {new Date(car.auctionEndsAt).toLocaleDateString()}
+                    </span>
                   )}
                 </div>
               </div>
               <div className="car-card-content">
                 <div className="car-card-title text-2xl font-bold text-white mb-2">{car.title}</div>
-                <div className="car-card-price text-2xl font-bold text-cyan-400 mb-4">{car.price}</div>
+                <div className="car-card-price text-2xl font-bold text-cyan-400 mb-4">{car.price.toLocaleString()} USDC</div>
                 <div className="car-card-specs text-[#b3c2d6] mb-4">
                   <div className="car-card-spec font-medium">{car.year}</div>
-                  <div className="car-card-spec font-medium">{car.mileage} miles</div>
+                  <div className="car-card-spec font-medium">{car.mileage.toLocaleString()} miles</div>
                   <div className="car-card-spec font-medium">{car.location}</div>
                 </div>
                 <div className="flex gap-2 mb-2">
-                  {car.status === 'Auction' && (
-                    <span className="bg-purple-400/20 text-purple-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">Auction</span>
-                  )}
-                  {car.status === 'Buy Now' && (
-                    <span className="bg-cyan-400/20 text-cyan-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">Buy Now</span>
+                  {car.isAuction ? (
+                    <span className="bg-purple-400/20 text-purple-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">
+                      <Tag className="h-3 w-3 mr-1" />Auction
+                    </span>
+                  ) : (
+                    <span className="bg-cyan-400/20 text-cyan-400 text-xs px-2 py-1 rounded-full flex items-center font-semibold">
+                      Buy Now
+                    </span>
                   )}
                 </div>
-                <Link href={car.link}>
+                <Link href={`/vehicles/${car.id}`}>
                   <button className="car-card-btn w-full mt-2">View Details</button>
                 </Link>
               </div>
             </div>
           ))}
         </div>
-        <div className="flex justify-center mt-10">
-          <Link href="/marketplace">
-            <button className="px-8 py-3 rounded-lg bg-cyan-400 text-[#101624] font-bold text-lg shadow-lg hover:bg-cyan-300 transition">Browse All Vehicles</button>
-          </Link>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="mt-20 py-8 bg-[#101624] border-t border-[#1a2236] text-center text-sm text-[#b3c2d6]">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
-            <span className="font-bold text-lg text-cyan-400">Dubuu</span>
-            <div className="flex gap-4">
-              <Link href="/marketplace" className="hover:underline">Marketplace</Link>
-              <Link href="/auctions" className="hover:underline">Live Auctions</Link>
-              <Link href="/sell" className="hover:underline">Sell Your Vehicle</Link>
-              <Link href="/watchlist" className="hover:underline">Watchlist</Link>
-              </div>
-            <div className="flex gap-4">
-              <Link href="/guides" className="hover:underline">Guides</Link>
-              <Link href="/faq" className="hover:underline">FAQ</Link>
-              <Link href="/docs" className="hover:underline">Documentation</Link>
-              <Link href="/blog" className="hover:underline">Blog</Link>
-            </div>
-            <div className="flex gap-4">
-              <Link href="/about" className="hover:underline">About Us</Link>
-              <Link href="/careers" className="hover:underline">Careers</Link>
-              <Link href="/contact" className="hover:underline">Contact</Link>
-              <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
-            </div>
+        {filteredVehicles.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-[#b3c2d6] text-lg">No vehicles found matching your criteria.</p>
+            <Button
+              variant="outline"
+              className="mt-4 bg-[#181f2e] border-[#1a2236] text-[#b3c2d6] hover:bg-cyan-400/10 hover:text-cyan-400"
+              onClick={() => {
+                setSearchQuery("")
+                setPriceRange([0, 200000])
+                setSelectedMakes([])
+                setSelectedConditions([])
+              }}
+            >
+              Clear All Filters
+            </Button>
           </div>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" aria-label="Twitter" className="hover:text-cyan-400">Twitter</a>
-            <a href="#" aria-label="Facebook" className="hover:text-cyan-400">Facebook</a>
-            <a href="#" aria-label="Instagram" className="hover:text-cyan-400">Instagram</a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-cyan-400">LinkedIn</a>
-            <a href="#" aria-label="GitHub" className="hover:text-cyan-400">GitHub</a>
-          </div>
-        </div>
-        <div className="mt-6 text-[#b3c2d6]">© {new Date().getFullYear()} Dubuu Marketplace. All rights reserved.</div>
-      </footer>
+        )}
+      </section>
     </div>
   )
 }

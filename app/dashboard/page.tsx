@@ -1,164 +1,103 @@
 "use client"
 
+import { BarChart3, Car, Gavel, Users } from "lucide-react"
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowDown, ArrowUp, Car, DollarSign, Gavel, Shield, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 
 export default function DashboardPage() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Dashboard Overview</h1>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              Export
-            </Button>
-            <Button size="sm">Refresh</Button>
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-white">Dashboard Overview</h1>
+        
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-cyan-400/20 flex items-center justify-center">
+                <BarChart3 className="h-6 w-6 text-cyan-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">Total Revenue</p>
+                <p className="text-2xl font-bold text-white">$1,234,567</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-purple-400/20 flex items-center justify-center">
+                <Gavel className="h-6 w-6 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">Active Auctions</p>
+                <p className="text-2xl font-bold text-white">24</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-blue-400/20 flex items-center justify-center">
+                <Car className="h-6 w-6 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">Registered Vehicles</p>
+                <p className="text-2xl font-bold text-white">1,234</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-lg bg-green-400/20 flex items-center justify-center">
+                <Users className="h-6 w-6 text-green-400" />
+              </div>
+              <div>
+                <p className="text-[#b3c2d6] text-sm">Active Users</p>
+                <p className="text-2xl font-bold text-white">5,678</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="reports">Reports</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">$45,231.89</div>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="text-green-500 flex items-center">
-                      <ArrowUp className="mr-1 h-3 w-3" />
-                      +20.1%
-                    </span>{" "}
-                    from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Active Auctions</CardTitle>
-                  <Gavel className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">24</div>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="text-green-500 flex items-center">
-                      <ArrowUp className="mr-1 h-3 w-3" />
-                      +12%
-                    </span>{" "}
-                    from last week
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Registered Vehicles</CardTitle>
-                  <Car className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">573</div>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="text-green-500 flex items-center">
-                      <ArrowUp className="mr-1 h-3 w-3" />
-                      +8.2%
-                    </span>{" "}
-                    from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">2,345</div>
-                  <p className="text-xs text-muted-foreground">
-                    <span className="text-red-500 flex items-center">
-                      <ArrowDown className="mr-1 h-3 w-3" />
-                      -3.2%
-                    </span>{" "}
-                    from last month
-                  </p>
-                </CardContent>
-              </Card>
+        {/* Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <h2 className="text-xl font-semibold text-white mb-4">Recent Transactions</h2>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-4 bg-[#101624] rounded-lg">
+                  <div>
+                    <p className="text-white font-medium">Tesla Model S Plaid</p>
+                    <p className="text-sm text-[#b3c2d6]">Transaction #{i}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-cyan-400 font-semibold">$129,990</p>
+                    <p className="text-sm text-[#b3c2d6]">2 hours ago</p>
+                  </div>
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="lg:col-span-4">
-                <CardHeader>
-                  <CardTitle>Recent Transactions</CardTitle>
-                  <CardDescription>Overview of the most recent marketplace transactions</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between border-b border-border pb-4 last:border-0 last:pb-0"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 rounded-full bg-background-secondary flex items-center justify-center">
-                            <Car className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <p className="font-medium">2020 Tesla Model 3 Performance</p>
-                            <p className="text-sm text-muted-foreground">Sold for $42,500</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-medium">3h ago</p>
-                          <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
-                            Completed
-                          </Badge>
-                        </div>
-                      </div>
-                    ))}
+          <div className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+            <h2 className="text-xl font-semibold text-white mb-4">Pending Verifications</h2>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-4 bg-[#101624] rounded-lg">
+                  <div>
+                    <p className="text-white font-medium">Porsche 911 GT3</p>
+                    <p className="text-sm text-[#b3c2d6]">Verification #{i}</p>
                   </div>
-                </CardContent>
-              </Card>
-              <Card className="lg:col-span-3">
-                <CardHeader>
-                  <CardTitle>Pending Verifications</CardTitle>
-                  <CardDescription>Vehicle ownership verification requests</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between border-b border-border pb-4 last:border-0 last:pb-0"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 rounded-full bg-background-secondary flex items-center justify-center">
-                            <Shield className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <p className="font-medium">2019 BMW M4 Competition</p>
-                            <p className="text-sm text-muted-foreground">Submitted 2d ago</p>
-                          </div>
-                        </div>
-                        <Button size="sm">Review</Button>
-                      </div>
-                    ))}
+                  <div className="text-right">
+                    <p className="text-purple-400 font-semibold">Pending</p>
+                    <p className="text-sm text-[#b3c2d6]">1 day ago</p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              ))}
             </div>
-          </TabsContent>
-        </Tabs>
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   )

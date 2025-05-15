@@ -1,66 +1,48 @@
 "use client"
 
+import { Users, Mail, Phone, Car, Shield } from "lucide-react"
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { User } from "lucide-react"
 
 export default function UsersPage() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Registered Users</h1>
-          <Button>Add User</Button>
-        </div>
-
-        <div className="grid gap-4">
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-white">Registered Users</h1>
+        
+        <div className="grid gap-6">
           {[1, 2, 3, 4, 5].map((i) => (
-            <Card key={i}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                      <User className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle>John Doe</CardTitle>
-                      <CardDescription>Joined 2 months ago • 3 vehicles registered</CardDescription>
-                    </div>
-                  </div>
-                  <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
-                    Active
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div>
-                    <h3 className="font-medium mb-2">User Details</h3>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <p>Email: john@example.com</p>
-                      <p>Phone: (555) 123-4567</p>
-                      <p>Wallet: 0x1234...5678</p>
-                      <p>Role: Vehicle Owner</p>
-                    </div>
+            <div key={i} className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex gap-4">
+                  <div className="h-12 w-12 rounded-lg bg-cyan-400/20 flex items-center justify-center">
+                    <Users className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-2">Activity</h3>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <p>Vehicles Registered: 3</p>
-                      <p>Active Auctions: 1</p>
-                      <p>Completed Auctions: 2</p>
-                      <p>Total Bids: 15</p>
+                    <h3 className="text-lg font-semibold text-white">John Doe</h3>
+                    <div className="mt-2 flex flex-col gap-1">
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <Mail className="h-4 w-4 mr-2" />
+                        john@example.com
+                      </div>
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <Phone className="h-4 w-4 mr-2" />
+                        (555) 123-4567
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end gap-2 mt-4">
-                  <Button variant="outline">View Profile</Button>
-                  <Button>Suspend User</Button>
+                <div className="flex gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-400/20 text-purple-400">
+                    <Car className="h-4 w-4" />
+                    <span>3 Vehicles</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-400">
+                    <Shield className="h-4 w-4" />
+                    <span>Verified</span>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

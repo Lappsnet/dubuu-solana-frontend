@@ -1,8 +1,8 @@
 "use client"
 
+import { Gavel, Clock, DollarSign, Users, TrendingUp } from "lucide-react"
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout"
 //import '../../styles/car-card.css'
-import { Gavel } from "lucide-react"
 
 const auctions = [
   {
@@ -55,42 +55,44 @@ const auctions = [
 export default function AuctionsPage() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Active Auctions</h1>
-          <button className="car-card-btn">Create Auction</button>
-        </div>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {auctions.map((a) => (
-            <div className="car-card" key={a.title}>
-              <div className="car-card-image-area">
-                <img src={a.image} alt={a.title} className="car-card-image" />
-                <div className="car-card-glare"></div>
-              </div>
-              <div className="car-card-content">
-                <div className="car-card-title flex items-center gap-2"><Gavel className="h-5 w-5 text-cyan-400" />{a.title}</div>
-                <div className="car-card-specs mb-2">
-                  <div className="car-card-spec">{a.started}</div>
-                  <div className="car-card-spec">Ends {a.ends}</div>
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-white">Active Auctions</h1>
+        
+        <div className="grid gap-6">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="bg-[#181f2e] rounded-xl p-6 border border-[#1a2236] shadow-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex gap-4">
+                  <div className="h-12 w-12 rounded-lg bg-cyan-400/20 flex items-center justify-center">
+                    <Gavel className="h-6 w-6 text-cyan-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">Porsche 911 GT3</h3>
+                    <div className="mt-2 flex flex-col gap-1">
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <DollarSign className="h-4 w-4 mr-2" />
+                        Current Bid: $189,990
+                      </div>
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <Clock className="h-4 w-4 mr-2" />
+                        Ends in: 2 days
+                      </div>
+                      <div className="flex items-center text-[#b3c2d6]">
+                        <Users className="h-4 w-4 mr-2" />
+                        12 Bidders
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="car-card-specs mb-2">
-                  <div className="car-card-spec">Starting: {a.startingPrice}</div>
-                  <div className="car-card-spec">Current: {a.currentBid}</div>
-                  <div className="car-card-spec">Bids: {a.numBids}</div>
-                  <div className="car-card-spec">Min Inc: {a.minIncrement}</div>
-                </div>
-                <div className="car-card-specs mb-2">
-                  <div className="car-card-spec">{a.make}</div>
-                  <div className="car-card-spec">{a.model}</div>
-                  <div className="car-card-spec">{a.year}</div>
-                  <div className="car-card-spec">{a.mileage}</div>
-                </div>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="car-card-price">{a.status}</span>
-                </div>
-                <div className="flex justify-end gap-2 mt-2">
-                  <button className="car-card-btn">View Details</button>
-                  <button className="car-card-btn">End Auction</button>
+                <div className="flex gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-400/20 text-purple-400">
+                    <TrendingUp className="h-4 w-4" />
+                    <span>Active</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-400">
+                    <Clock className="h-4 w-4" />
+                    <span>2 days left</span>
+                  </div>
                 </div>
               </div>
             </div>

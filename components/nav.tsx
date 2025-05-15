@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { WalletConnectButton } from './wallet-connect-button'
+import { PhantomConnectButton } from './phantom-connect-button'
 
 export function Nav() {
   return (
@@ -23,7 +23,7 @@ export function Nav() {
             </div>
           </div>
           <div className="flex items-center">
-            <WalletConnectButton />
+            <PhantomConnectButton />
           </div>
         </div>
       </div>

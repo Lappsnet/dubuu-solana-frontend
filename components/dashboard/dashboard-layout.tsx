@@ -7,6 +7,7 @@ import { BarChart3, Car, Gavel, Home, LayoutDashboard, LogOut, Settings, Shield,
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
+import { PhantomConnectButton } from "@/components/phantom-connect-button"
 
 interface DashboardLayoutProps {
   children: ReactNode
@@ -61,24 +62,24 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   ]
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gradient-to-b from-[#101624] to-[#0b1120]">
       {/* Sidebar */}
-      <div className="hidden md:flex w-64 flex-col border-r border-border bg-card">
-        <div className="flex items-center gap-2 p-4 border-b border-border">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xl">D</span>
+      <div className="hidden md:flex w-64 flex-col border-r border-[#1a2236] bg-[#101624]">
+        <div className="flex items-center gap-2 p-4 border-b border-[#1a2236]">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center justify-center">
+            <span className="text-white font-bold text-xl">D</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               Dubuu
             </span>
-            <span className="text-xs text-muted-foreground">Admin Dashboard</span>
+            <span className="text-xs text-[#b3c2d6]">Admin Dashboard</span>
           </div>
         </div>
 
         <nav className="flex-1 p-4">
           <div className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start" asChild>
+            <Button variant="ghost" className="w-full justify-start text-[#b3c2d6] hover:text-cyan-400 hover:bg-cyan-400/10" asChild>
               <Link href="/">
                 <Home className="mr-2 h-4 w-4" />
                 Back to Marketplace
@@ -88,7 +89,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               <Button
                 key={item.title}
                 variant={item.isActive ? "secondary" : "ghost"}
-                className="w-full justify-start"
+                className={`w-full justify-start ${
+                  item.isActive 
+                    ? "bg-cyan-400/20 text-cyan-400 hover:bg-cyan-400/30" 
+                    : "text-[#b3c2d6] hover:text-cyan-400 hover:bg-cyan-400/10"
+                }`}
                 asChild
               >
                 <Link href={item.href}>
@@ -100,17 +105,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </nav>
 
-        <div className="p-4 border-t border-border">
+        <div className="p-4 border-t border-[#1a2236]">
           <div className="flex items-center gap-3">
             <Avatar>
               <AvatarImage src="/admin-interface.png" alt="Admin" />
-              <AvatarFallback>AD</AvatarFallback>
+              <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-purple-500">AD</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <span className="text-sm font-medium">Admin User</span>
-              <span className="text-xs text-muted-foreground">admin@dubuu.com</span>
+              <span className="text-sm font-medium text-white">Admin User</span>
+              <span className="text-xs text-[#b3c2d6]">admin@dubuu.com</span>
             </div>
-            <Button variant="ghost" size="icon" className="ml-auto">
+            <Button variant="ghost" size="icon" className="ml-auto text-[#b3c2d6] hover:text-cyan-400 hover:bg-cyan-400/10">
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
@@ -119,15 +124,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col">
-        <header className="flex h-16 items-center gap-4 border-b border-border px-6">
+        <header className="flex h-16 items-center gap-4 border-b border-[#1a2236] px-6 bg-[#101624]">
           <div className="relative flex-1 max-w-md">
-            <Input type="search" placeholder="Search..." className="pl-9 bg-background-secondary" />
+            <Input 
+              type="search" 
+              placeholder="Search..." 
+              className="pl-9 bg-[#181f2e] border-[#1a2236] text-[#b3c2d6] placeholder:text-[#b3c2d6]/50 focus:border-cyan-400/50 focus:ring-cyan-400/20" 
+            />
             <div className="absolute left-3 top-1/2 -translate-y-1/2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                className="h-4 w-4 text-muted-foreground"
+                className="h-4 w-4 text-[#b3c2d6]"
               >
                 <path
                   fillRule="evenodd"
@@ -138,12 +147,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm">
-              Connect Wallet
-            </Button>
+            <PhantomConnectButton />
           </div>
         </header>
-        <main className="flex-1 overflow-auto p-6">{children}</main>
+        <main className="flex-1 overflow-auto p-6 bg-gradient-to-b from-[#101624] to-[#0b1120]">{children}</main>
       </div>
     </div>
   )
